@@ -1,7 +1,8 @@
 import useWidgetStore from "@/store";
 import Text from "./widgets/text";
+import { memo } from "react";
 
-export default function Widgets() {
+const Widgets = memo(function Widgets() {
   const data = useWidgetStore((state) => state.widget);
   console.log(data);
   return (
@@ -11,4 +12,6 @@ export default function Widgets() {
       ))}
     </>
   );
-}
+});
+
+export default Widgets;
