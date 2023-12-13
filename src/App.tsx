@@ -1,19 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Widgets from "./components/widgets";
-import useWidgetStore from "./store";
-import { getTestWidget } from "./utils/testdata";
-import useMove from "./hooks/useMove";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home";
+import Layout from "./pages/layout";
+import TempList from "./pages/temp-list";
+import Design from "./pages/design";
+import NotFound from "./pages/not-found";
+import Print from "./pages/print";
 
 export default function App() {
-  const setState = useWidgetStore((state) => state.setState);
-  const ref = useMove();
-
   return (
-    <div className=" w-screen h-screen flex items-center justify-center bg-slate-700">
-      <div className=" h-[500px] w-[1000px] bg-white relative" ref={ref}>
-        <Widgets />
-      </div>
-      <button onClick={() => setState(getTestWidget())}>tets</button>
+    <div className="dark">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route element={<Layout />}>
+          <Route path="/list" element={<TempList />} />
+          <Route path="/print" element={<Print />} />
+        </Route>
+        <Route path="/design" element={<Design />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

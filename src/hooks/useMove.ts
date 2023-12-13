@@ -2,7 +2,7 @@
 import useWidgetStore from "@/store";
 import { useEffect, useRef } from "react";
 import { elementCache } from "@/utils/cache";
-import { useMemoizedFn } from "ahooks";
+import { useMemoizedFn, useEventListener } from "ahooks";
 
 export default function useMouse() {
   const ref = useRef<HTMLDivElement>(null);
@@ -39,11 +39,10 @@ export default function useMouse() {
 
   useEffect(() => {
     document.addEventListener("mouseup", handleMouseUp);
-    if (ref.current) {
-      ref.current.addEventListener("mousedown", handleMouseDown);
-    }
     return () => document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleMouseDown, handleMouseUp]);
+  }, [handleMouseUp]);
+
+  useEventListener("mousedown", handleMouseDown, { target: ref });
 
   return ref;
 }
