@@ -46,6 +46,10 @@ module.exports = {
         },
       },
       {
+        test: /\.(woff2?|ttf)$/,
+        type: "asset/resource",
+      },
+      {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
@@ -53,10 +57,13 @@ module.exports = {
           options: {
             presets: [
               "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }],
               "@babel/preset-typescript",
+              ["@babel/preset-react", { runtime: "automatic" }],
             ],
-            plugins: [!isProduction && "react-refresh/babel"].filter(Boolean),
+            plugins: [
+              !isProduction && "react-refresh/babel",
+              "@babel/plugin-transform-runtime",
+            ].filter(Boolean),
           },
         },
       },
