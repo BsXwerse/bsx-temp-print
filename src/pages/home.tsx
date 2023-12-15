@@ -4,7 +4,7 @@ import { SiGithub } from "react-icons/si";
 
 export default function Home() {
   return (
-    <div className="bg-background text-foreground w-screen h-screen flex items-center justify-center flex-col md:flex-row p-8 gap-20">
+    <div className="text-foreground w-screen h-screen flex items-center justify-center flex-col md:flex-row p-8 gap-20">
       <div>
         <h1 className="text-4xl font-semibold mb-10">
           基于Lodop的模板打印系统
@@ -15,18 +15,18 @@ export default function Home() {
         <div className="flex items-center">
           <Link
             to="/list"
-            className=" bg-cyan-700 rounded px-5 py-3 font-semibold shrink-0 text-white/90"
+            className=" bg-cyan-700 rounded px-5 py-3 font-semibold shrink-0 text-white dark:text-white/90 hover:bg-cyan-600"
           >
             开始使用
           </Link>
-          <a
-            href="https://github.com/BsXwerse/bsx-temp-print"
+          <Link
+            to="https://github.com/BsXwerse/bsx-temp-print"
             target="_blank"
-            className="font-semibold bg-black/90 px-5 py-3 rounded mx-10 inline-flex items-center gap-3 text-white/90"
+            className="font-semibold bg-black/90 px-5 py-3 rounded mx-10 inline-flex items-center gap-3 text-white/90 hover:bg-white/5"
           >
             <SiGithub />
             GitHub
-          </a>
+          </Link>
         </div>
       </div>
       <img src={Example} className="w-[500px] aspect-video rounded shadow" />

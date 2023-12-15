@@ -5,15 +5,18 @@ import TempList from "./pages/temp-list";
 import Design from "./pages/design";
 import NotFound from "./pages/not-found";
 import Print from "./pages/print";
+import About from "./pages/about";
 
 export default function App() {
   return (
-    <div className="dark">
+    <div className="dark bg-background min-h-screen text-foreground">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<Layout />}>
+          <Route path="/home" element={<Home />} />
           <Route path="/list" element={<TempList />} />
           <Route path="/print" element={<Print />} />
+          <Route path="/about" element={<About />} />
         </Route>
         <Route path="/design" element={<Design />} />
         <Route path="*" element={<NotFound />} />

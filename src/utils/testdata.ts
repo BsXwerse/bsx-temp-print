@@ -20,3 +20,16 @@ export function getTestWidget() {
   }
   return data;
 }
+
+export function getTestData() {
+  const data: string[] = [];
+  for (let i = 0; i < 17; i++) {
+    data.push(
+      faker.image.url({
+        height: i % 2 == 1 ? 320 : 480,
+        width: i % 2 == 1 ? 240 : 640,
+      }),
+    );
+  }
+  return data;
+}
