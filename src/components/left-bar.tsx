@@ -6,8 +6,8 @@ import { Root as Separator } from "@radix-ui/react-separator";
 export default function LeftBar() {
   const location = useLocation();
   return (
-    <div className="space-y-5 text-muted text-lg hidden md:block font-semibold sticky top-0 h-full shrink-0 py-14">
-      <Separator className=" bg-muted-foreground max-w-36 h-[1.5px]" />
+    <div className="space-y-5 text-muted-foreground text-lg hidden md:block font-semibold sticky top-0 h-full shrink-0 py-14">
+      <Separator className="bg-muted-foreground max-w-36 h-[1.5px]" />
       {leftLinks.map((x) => (
         <Link
           to={x.href}

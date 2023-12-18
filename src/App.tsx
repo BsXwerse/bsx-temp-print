@@ -9,7 +9,7 @@ import About from "./pages/about";
 
 export default function App() {
   return (
-    <div className="dark bg-background min-h-screen text-foreground">
+    <div className="min-h-screen w-full text-foreground select-none">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<Layout />}>

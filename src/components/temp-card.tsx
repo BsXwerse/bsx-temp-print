@@ -4,7 +4,7 @@ export default function TempCard({ url }: { url: string }) {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <div className="no-break text-center relative hover:scale-105 transition-transform">
+        <div className="no-break text-center relative hover:scale-105 transition-transform shadow-lg">
           <div className="rounded absolute w-full h-full transition-colors hover:bg-white/10 cursor-pointer" />
           <img src={url} alt="test" className="w-full rounded" />
           name

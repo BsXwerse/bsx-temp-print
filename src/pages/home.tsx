@@ -3,8 +3,11 @@ import Example from "@/assets/images/example.png";
 import { SiGithub } from "react-icons/si";
 
 export default function Home() {
+  !document.body.classList.contains("dark") &&
+    document.body.classList.add("dark");
+
   return (
-    <div className="text-foreground w-screen h-screen flex items-center justify-center flex-col md:flex-row p-8 gap-20">
+    <div className="w-screen h-screen flex items-center justify-center flex-col md:flex-row p-8 gap-20">
       <div>
         <h1 className="text-4xl font-semibold mb-10">
           基于Lodop的模板打印系统
