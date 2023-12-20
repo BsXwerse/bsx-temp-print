@@ -2,10 +2,6 @@
   .no-break {
     -webkit-column-break-inside: avoid;
   }
-  body {
-    -webkit-tap-highlight-color: transparent;
-    background-color: hsl(var(--background));
-  }
 }
 
 @layer base {

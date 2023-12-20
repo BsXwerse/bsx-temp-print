@@ -19,3 +19,25 @@
   --muted: 240 3.7% 60%;
   --muted-foreground: 240 5% 60%;
 }
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  background-color: hsl(var(--background));
+  @apply transition-colors duration-500;
+}
+
+html::-webkit-scrollbar {
+  width: 15px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: rgb(26, 26, 26);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #5b5b5b;
+}

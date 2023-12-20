@@ -23,13 +23,45 @@ export function getTestWidget() {
 
 export function getTestData() {
   const data: string[] = [];
-  for (let i = 0; i < 17; i++) {
-    data.push(
+  for (let i = 0; i < 31; i++) {
+    convertImageToBase64(
       faker.image.url({
         height: i % 2 == 1 ? 320 : 480,
         width: i % 2 == 1 ? 240 : 640,
       }),
+      (url) => {
+        data.push(url);
+        if (data.length == 31) {
+          for (let i = 0; i < 31; i++) {
+            localStorage.setItem("url" + i, data[i]);
+          }
+          localStorage.setItem("temp-count", String(31));
+          alert("ok");
+        }
+      },
     );
   }
-  return data;
+}
+
+export function convertImageToBase64(
+  imgUrl: string,
+  callback: (url: string) => void,
+) {
+  const image = new Image();
+  image.crossOrigin = "anonymous";
+  image.onload = () => {
+    const canvas = document.createElement("canvas");
+    let h = image.naturalHeight,
+      w = image.naturalWidth;
+    if (image.naturalHeight >= 150) {
+      h *= 150 / image.naturalHeight;
+      w *= 150 / image.naturalHeight;
+    }
+    canvas.height = h;
+    canvas.width = w;
+    canvas.getContext("2d")?.drawImage(image, 0, 0, w, h);
+    const dataUrl = canvas.toDataURL();
+    callback && callback(dataUrl);
+  };
+  image.src = imgUrl;
 }
