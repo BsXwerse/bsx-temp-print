@@ -1,25 +1,23 @@
 import Pagination from "@/components/pagination";
 import TempCard from "@/components/temp-card";
-import { getTempCover } from "@/utils/localStorage";
-// import { getTestData } from "@/utils/testdata";
+import { getTempIds, getTempWithCover } from "@/utils/localStorage";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
+import { Temp } from "@/types/temp";
 
 const PAGE_SIZE = 9;
 
 export default function TempList() {
-  const pageCount = Math.ceil(
-    Number(localStorage.getItem("temp-count")) / PAGE_SIZE,
-  );
+  const ids = getTempIds();
+  const pageCount = Math.ceil(Number(ids.length) / PAGE_SIZE);
   const [pageNum, setPageNum] = useState(0);
-  const data = getTempCover(pageNum, PAGE_SIZE);
+  const data: Temp[] = getTempWithCover(ids, pageNum, PAGE_SIZE);
 
   return (
     <>
-      {/* <button onClick={getTestData}>============</button> */}
       <div className="columns-2 md:columns-3 lg:columns-4 gap-7 space-y-4">
-        {data.map((x, index) => (
-          <TempCard key={index} url={x} />
+        {data.map((x) => (
+          <TempCard key={x.id} temp={x} />
         ))}
       </div>
       <Pagination

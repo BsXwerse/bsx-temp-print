@@ -8,7 +8,7 @@
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
 
-  --muted: 240 4.8% 95.9%;
+  --muted: 240 4.8% 90%;
   --muted-foreground: 240 3.8% 46.1%;
 }
 
@@ -16,7 +16,7 @@
   --background: 207 10% 13%;
   --foreground: 0 0% 88%;
 
-  --muted: 240 3.7% 60%;
+  --muted: 240 3.7% 40%;
   --muted-foreground: 240 5% 60%;
 }
 
