@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useWidgetStore from "@/store";
+import useStore from "@/store";
 import { useEffect, useRef } from "react";
 import { elementCache } from "@/utils/cache";
 import { useMemoizedFn, useEventListener } from "ahooks";
 
 export default function useMouse() {
   const ref = useRef<HTMLDivElement>(null);
-  const setActive = useWidgetStore((state) => state.setActive);
+  const setActive = useStore((state) => state.setActive);
 
   const handleMouseMove = useMemoizedFn((e: MouseEvent) => {
     const doc = document as any;

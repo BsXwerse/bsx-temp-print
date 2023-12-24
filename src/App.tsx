@@ -18,7 +18,7 @@ export default function App() {
           <Route path="/print" element={<Print />} />
           <Route path="/about" element={<About />} />
         </Route>
-        <Route path="/design" element={<Design />} />
+        <Route path="/design/:tempId" element={<Design />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

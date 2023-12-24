@@ -16,12 +16,16 @@ export default function TempCard({ temp }: { temp: Temp }) {
       <Popover.Portal>
         <Popover.Content asChild sideOffset={-100}>
           <div className="bg-background text-foreground rounded-lg font-semibold p-3 animate-popover flex flex-col gap-1 shadow-md">
-            <Link to="/design" className="hover:bg-muted p-2 rounded">
+            <Link
+              to={"/design/" + temp.id}
+              className="hover:bg-muted p-2 rounded"
+            >
               编辑
             </Link>
             <Link to="/print" className="hover:bg-muted p-2 rounded">
               打印
             </Link>
+            <button className="hover:bg-muted p-2 rounded">导出</button>
             <AlertDialog.Root>
               <AlertDialog.Trigger asChild>
                 <button className="hover:bg-muted p-2 rounded">删除</button>

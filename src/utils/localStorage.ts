@@ -7,6 +7,15 @@ export function getTempIds(): string[] {
   return res;
 }
 
+export function getTemp(id: string): Temp | null {
+  const tempStr = localStorage.getItem(id);
+  if (!tempStr) {
+    console.error("获取模板数据失败，id：" + id);
+    return null;
+  }
+  return JSON.parse(tempStr);
+}
+
 export function getTempWithCover(
   ids: string[],
   pageNum: number,

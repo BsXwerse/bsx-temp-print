@@ -1,10 +1,10 @@
-import useWidgetStore from "@/store";
+import useStore from "@/store";
 import Text from "./widgets/text";
 import { memo } from "react";
 import { elementCache } from "@/utils/cache";
 
 const Widgets = memo(function Widgets() {
-  const data = useWidgetStore((state) => state.widget);
+  const data = useStore((state) => state.widget);
   elementCache.clear();
   console.log(data);
   return (
