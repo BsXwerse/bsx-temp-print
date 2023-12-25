@@ -1,9 +1,9 @@
 export interface Temp {
-  id: string;
+  id?: number;
   name: string;
   width: number;
   height: number;
   coverUrl?: string;
-  coverId: string;
-  widgetsId: string;
+  coverId: number;
+  widgetsId: number;
 }

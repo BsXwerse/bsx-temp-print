@@ -12,3 +12,8 @@ export interface Widget {
   value: any;
   style: any;
 }
+
+export interface Widgets {
+  id?: number;
+  widgets: Widget[];
+}

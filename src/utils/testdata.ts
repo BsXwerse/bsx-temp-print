@@ -3,6 +3,7 @@ import { Widget } from "@/types/widget";
 import { v4 as uuidv4 } from "uuid";
 import { faker } from "@faker-js/faker";
 import { Temp } from "@/types/temp";
+import { addCover, addTemps, deleteAll } from "./indexedDB";
 
 export function getTestWidget() {
   const data: Widget[] = [];
@@ -47,21 +48,15 @@ export function convertImageToBase64(
 
 export function genTestData() {
   const data: Temp[] = [];
-  const coverMap = new Map();
-  const tempIds: string[] = [];
   for (let i = 0; i < 50; i++) {
     convertImageToBase64(
       faker.image.url({
         height: i % 2 == 1 ? 320 : 480,
         width: i % 2 == 1 ? 240 : 640,
       }),
-      (url) => {
-        const coverId = uuidv4();
-        const tempId = uuidv4();
-        tempIds.push(tempId);
-        coverMap.set(coverId, url);
+      async (url) => {
+        const coverId = await addCover(url);
         data.push({
-          id: tempId,
           name: faker.lorem.word({
             length: { min: 5, max: 7 },
             strategy: "fail",
@@ -69,16 +64,10 @@ export function genTestData() {
           width: Math.random() * 300 + 500,
           height: Math.random() * 300 + 700,
           coverId: coverId,
-          widgetsId: "null",
+          widgetsId: -1,
         });
         if (data.length == 50) {
-          data.forEach((x) => {
-            localStorage.setItem(x.id, JSON.stringify(x));
-          });
-          localStorage.setItem("tempIds", JSON.stringify(tempIds));
-          coverMap.forEach((v, k) => {
-            localStorage.setItem(k, v);
-          });
+          addTemps(data);
           alert("ok");
         }
       },
@@ -86,6 +75,6 @@ export function genTestData() {
   }
 }
 
-export function clear() {
-  localStorage.clear();
+export function dataDelete() {
+  deleteAll();
 }
