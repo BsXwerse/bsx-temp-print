@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useStore from "@/store";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { elementCache } from "@/utils/cache";
 import { useMemoizedFn, useEventListener } from "ahooks";
 
-export default function useMouse() {
-  const ref = useRef<HTMLDivElement>(null);
+export default function useMove(ref: React.RefObject<HTMLDivElement>) {
   const setActive = useStore((state) => state.setActive);
 
   const handleMouseMove = useMemoizedFn((e: MouseEvent) => {
@@ -43,6 +42,4 @@ export default function useMouse() {
   }, [handleMouseUp]);
 
   useEventListener("mousedown", handleMouseDown, { target: ref });
-
-  return ref;
 }

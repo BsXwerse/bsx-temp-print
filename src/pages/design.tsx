@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Null from "@/assets/images/null.png";
 import LeftPanel from "@/components/left-panel";
 import { getTemp } from "@/utils/indexedDB";
+import useMouse from "@/hooks/useMouse";
 
 export default function Design() {
   const { tempId } = useParams();
@@ -13,6 +14,7 @@ export default function Design() {
 
   useMount(async () => setCurTemp(await getTemp(Number(tempId))));
   useUnmount(() => reset());
+  const ref = useMouse();
 
   if (curTemp) {
     return (
@@ -22,6 +24,7 @@ export default function Design() {
           <div
             className="bg-white/50 flex items-center justify-center text-foreground"
             style={{ width: curTemp.width, height: curTemp.height }}
+            ref={ref}
           >
             {curTemp.name}
             width:
