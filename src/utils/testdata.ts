@@ -3,7 +3,7 @@ import { Widget } from "@/types/widget";
 import { v4 as uuidv4 } from "uuid";
 import { faker } from "@faker-js/faker";
 import { Temp } from "@/types/temp";
-import { addCover, addTemps, deleteAll } from "./indexedDB";
+import { addCover, addTemps, addWidgets, deleteAll } from "./indexedDB";
 
 export function getTestWidget() {
   const data: Widget[] = [];
@@ -11,10 +11,10 @@ export function getTestWidget() {
     data.push({
       id: uuidv4(),
       type: WidgetType.TEXT,
-      width: Math.random() * 150,
-      height: Math.random() * 150,
-      top: Math.random() * 400,
-      left: Math.random() * 900,
+      width: Math.random() * 100 + 50,
+      height: Math.random() * 100 + 50,
+      top: Math.random() * 550,
+      left: Math.random() * 450,
       name: faker.lorem.word({ length: { max: 10, min: 5 } }),
       value: faker.lorem.word({ length: { max: 10, min: 5 } }),
       style: {},
@@ -56,6 +56,7 @@ export function genTestData() {
       }),
       async (url) => {
         const coverId = await addCover(url);
+        const widgetsId = await addWidgets(getTestWidget());
         data.push({
           name: faker.lorem.word({
             length: { min: 5, max: 7 },
@@ -64,7 +65,7 @@ export function genTestData() {
           width: Math.random() * 300 + 500,
           height: Math.random() * 300 + 700,
           coverId: coverId,
-          widgetsId: -1,
+          widgetsId: widgetsId,
         });
         if (data.length == 50) {
           addTemps(data);

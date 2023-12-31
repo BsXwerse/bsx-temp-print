@@ -25,7 +25,8 @@ const useStore = create<State & Action>()((set) => ({
   ...initValue,
   setState: (widget) => set(() => ({ widget })),
   setActive: (id) => set(() => ({ active: id })),
-  setCurTemp: (temp) => set(() => ({ curTemp: temp })),
+  setCurTemp: (temp) =>
+    set(() => ({ curTemp: temp, widget: temp?.widgets ? temp.widgets : [] })),
   reset: () => set(initValue),
 }));
 

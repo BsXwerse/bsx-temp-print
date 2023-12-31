@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/lib/db";
 import { Temp } from "@/types/temp";
+import { Widget } from "@/types/widget";
 
 export function addTemp(temp: Temp) {
   try {
@@ -47,10 +48,14 @@ export async function getTempWithCover(pageNum: number, pageSize: number) {
   return temps;
 }
 
-export async function getTemp(id: number) {
+export async function getTempWithWidgets(id: number) {
   let temp;
   try {
     temp = await db.temps.where({ id: id }).first();
+    if (temp) {
+      const w = await db.widgets.where({ id: temp.widgetsId }).first();
+      if (w) temp.widgets = w.widgets;
+    }
   } catch (e: any) {
     console.error(e.message);
   }
@@ -62,7 +67,17 @@ export async function addCover(url: string) {
   try {
     id = await db.covers.add({ url });
   } catch (e: any) {
-    console.log(e.message);
+    console.error(e.message);
+  }
+  return id ? Number(id.valueOf()) : -1;
+}
+
+export async function addWidgets(widgets: Widget[]) {
+  let id;
+  try {
+    id = await db.widgets.add({ widgets });
+  } catch (e: any) {
+    console.error(e.message);
   }
   return id ? Number(id.valueOf()) : -1;
 }

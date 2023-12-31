@@ -3,8 +3,9 @@ import { useMount, useUnmount } from "ahooks";
 import { Link, useParams } from "react-router-dom";
 import Null from "@/assets/images/null.png";
 import LeftPanel from "@/components/left-panel";
-import { getTemp } from "@/utils/indexedDB";
+import { getTempWithWidgets } from "@/utils/indexedDB";
 import useMouse from "@/hooks/useMouse";
+import Widgets from "@/components/widgets";
 
 export default function Design() {
   const { tempId } = useParams();
@@ -12,7 +13,7 @@ export default function Design() {
   const reset = useStore((state) => state.reset);
   const curTemp = useStore((state) => state.curTemp);
 
-  useMount(async () => setCurTemp(await getTemp(Number(tempId))));
+  useMount(async () => setCurTemp(await getTempWithWidgets(Number(tempId))));
   useUnmount(() => reset());
   const ref = useMouse();
 
@@ -22,15 +23,11 @@ export default function Design() {
         <LeftPanel />
         <div className="w-full h-screen overflow-hidden flex items-center justify-center">
           <div
-            className="bg-white/50 flex items-center justify-center text-foreground"
+            className="bg-white/50 text-foreground relative shrink-0"
             style={{ width: curTemp.width, height: curTemp.height }}
             ref={ref}
           >
-            {curTemp.name}
-            width:
-            {curTemp.width}
-            height:
-            {curTemp.height}
+            <Widgets />
           </div>
         </div>
       </div>

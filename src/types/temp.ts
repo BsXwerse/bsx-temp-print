@@ -1,3 +1,5 @@
+import { Widget } from "./widget";
+
 export interface Temp {
   id?: number;
   name: string;
@@ -6,4 +8,5 @@ export interface Temp {
   coverUrl?: string;
   coverId: number;
   widgetsId: number;
+  widgets?: Widget[];
 }

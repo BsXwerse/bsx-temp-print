@@ -24,9 +24,10 @@ export default function useTransform(ref: React.RefObject<HTMLDivElement>) {
     ref.current.style.transform = `scale(${scale}) translate(${moveX}px, ${moveY}px)`;
   });
 
-  const handleMouseDown = useMemoizedFn(() =>
-    document.addEventListener("mousemove", handleMouseMove),
-  );
+  const handleMouseDown = useMemoizedFn((e: MouseEvent) => {
+    if (e.target !== e.currentTarget) return;
+    document.addEventListener("mousemove", handleMouseMove);
+  });
 
   const handleMouseUp = useMemoizedFn(() =>
     document.removeEventListener("mousemove", handleMouseMove),
