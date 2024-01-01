@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/lib/db";
+import { Cover } from "@/types/cover";
 import { Temp } from "@/types/temp";
 import { Widget } from "@/types/widget";
 
@@ -70,6 +71,15 @@ export async function addCover(url: string) {
     console.error(e.message);
   }
   return id ? Number(id.valueOf()) : -1;
+}
+
+export async function setCover(cover: Cover) {
+  try {
+    if (!cover.id) throw new Error("cover id 不能为空");
+    await db.covers.update(cover.id, { url: cover.url });
+  } catch (e: any) {
+    console.error(e.message);
+  }
 }
 
 export async function addWidgets(widgets: Widget[]) {

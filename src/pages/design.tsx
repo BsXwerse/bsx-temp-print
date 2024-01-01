@@ -23,6 +23,7 @@ export default function Design() {
         <LeftPanel />
         <div className="w-full h-screen overflow-hidden flex items-center justify-center">
           <div
+            id="design-canvas"
             className="bg-white/50 text-foreground relative shrink-0"
             style={{ width: curTemp.width, height: curTemp.height }}
             ref={ref}
