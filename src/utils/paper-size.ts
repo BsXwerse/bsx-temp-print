@@ -25,11 +25,11 @@ const pagers = new Map([
 export function getPagerSize(type: string) {
   if (!pagers.has(type)) {
     console.error("不存在该尺寸：" + type);
-    return null;
+    return getPagerSize("A4");
   }
   const size = pagers.get(type);
   if (size) return size;
-  else return null;
+  else return getPagerSize("A4");
 }
 
 export function getTypeList() {

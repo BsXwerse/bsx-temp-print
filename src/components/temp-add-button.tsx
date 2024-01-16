@@ -13,7 +13,7 @@ export default function TempAddButton() {
         <Popover.Content asChild sideOffset={10} side="top">
           <div className="bg-background text-foreground rounded-lg font-semibold p-3 animate-popover flex flex-col gap-1 shadow-lg lg:outline outline-muted">
             <AddDialog />
-            <button className="hover:bg-muted p-2 rounded">导入</button>
+            <button className="button">导入</button>
           </div>
         </Popover.Content>
       </Popover.Portal>

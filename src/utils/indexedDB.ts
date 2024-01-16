@@ -2,18 +2,45 @@
 import { db } from "@/lib/db";
 import { Cover } from "@/types/cover";
 import { Temp } from "@/types/temp";
-import { Widget } from "@/types/widget";
+import { Widget, Widgets } from "@/types/widget";
 
-export function addTemp(temp: Temp) {
+//TODO 拆分到不同文件
+export async function addTemp(temp: Temp) {
+  if (temp.coverId === -1) {
+    temp.coverId = await addCover("/images/null.png");
+  }
+  if (temp.widgetsId === -1) {
+    temp.widgetsId = await addWidgets([]);
+  }
+  let id;
   try {
-    db.temps.add(temp);
+    id = await db.temps.add(temp);
+  } catch (e: any) {
+    console.error(e.message);
+  }
+  return id ? Number(id.valueOf()) : -1;
+}
+
+export function addTemps(temps: Temp[]) {
+  db.temps.bulkAdd(temps);
+}
+
+export async function setTemp(temp: Temp) {
+  try {
+    if (!temp.id) throw new Error("id 不能为空");
+    await db.temps.update(temp.id, temp);
   } catch (e: any) {
     console.error(e.message);
   }
 }
 
-export function addTemps(temps: Temp[]) {
-  db.temps.bulkAdd(temps);
+export async function setWidgets(widgets: Widgets) {
+  try {
+    if (!widgets.id) throw new Error("id 不能为空");
+    await db.widgets.update(widgets.id, widgets);
+  } catch (e: any) {
+    console.error(e.message);
+  }
 }
 
 export async function countTemps() {

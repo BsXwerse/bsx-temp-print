@@ -1,5 +1,6 @@
 import { Temp } from "@/types/temp";
 import { Widget } from "@/types/widget";
+import { produce } from "immer";
 import { create } from "zustand";
 
 type State = {
@@ -9,9 +10,10 @@ type State = {
 };
 
 type Action = {
-  setState: (widget: Widget[]) => void;
+  setPos: (id: string, left: number, top: number) => void;
   setActive: (id: string) => void;
   setCurTemp: (temp: Temp | undefined) => void;
+  addWidget: (widget: Widget) => void;
   reset: () => void;
 };
 
@@ -23,10 +25,27 @@ const initValue: State = {
 
 const useStore = create<State & Action>()((set) => ({
   ...initValue,
-  setState: (widget) => set(() => ({ widget })),
   setActive: (id) => set(() => ({ active: id })),
   setCurTemp: (temp) =>
     set(() => ({ curTemp: temp, widget: temp?.widgets ? temp.widgets : [] })),
+  setPos(id, left, top) {
+    set(
+      produce((state: State) => {
+        const w = state.widget.find((x) => x.id === id);
+        if (w) {
+          w.left = left;
+          w.top = top;
+        }
+      }),
+    );
+  },
+  addWidget(widget) {
+    set(
+      produce((state: State) => {
+        state.widget.push(widget);
+      }),
+    );
+  },
   reset: () => set(initValue),
 }));
 

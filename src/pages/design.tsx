@@ -12,10 +12,10 @@ export default function Design() {
   const setCurTemp = useStore((state) => state.setCurTemp);
   const reset = useStore((state) => state.reset);
   const curTemp = useStore((state) => state.curTemp);
+  const ref = useMouse();
 
   useMount(async () => setCurTemp(await getTempWithWidgets(Number(tempId))));
   useUnmount(() => reset());
-  const ref = useMouse();
 
   if (curTemp) {
     return (

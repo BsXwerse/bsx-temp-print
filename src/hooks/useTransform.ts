@@ -9,11 +9,8 @@ export default function useTransform(ref: React.RefObject<HTMLDivElement>) {
 
   const handleWheel = useMemoizedFn((e: WheelEvent) => {
     if (!ref.current) return;
-    if (e.deltaY < 0) {
-      if (scale < 2.5) scale += 0.1;
-    } else {
-      if (scale > 0.3) scale -= 0.1;
-    }
+    if (e.deltaY < 0) scale += 0.1 * scale;
+    else scale -= 0.1 * scale;
     ref.current.style.transform = `scale(${scale}) translate(${moveX}px, ${moveY}px)`;
   });
 
@@ -36,13 +33,11 @@ export default function useTransform(ref: React.RefObject<HTMLDivElement>) {
   useEffect(() => {
     const cur = ref.current;
     if (cur) {
-      let a = document.documentElement.clientHeight / cur.clientHeight;
-      const b = document.documentElement.clientWidth / cur.clientWidth;
-      a = Math.max(Math.min(a, b) - 0.1, 0.1);
-      if (a < 1) {
-        scale = a;
-        cur.style.transform = `scale(${a})`;
-      }
+      let a = (document.documentElement.clientHeight * 0.9) / cur.clientHeight;
+      const b = (document.documentElement.clientWidth * 0.9) / cur.clientWidth;
+      a = Math.abs(a - 1) < Math.abs(b - 1) ? a : b;
+      scale = a;
+      cur.style.transform = `scale(${a})`;
     }
     document.addEventListener("mouseup", handleMouseUp);
     return () => document.removeEventListener("mouseup", handleMouseUp);

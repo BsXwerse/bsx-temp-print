@@ -6,8 +6,10 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
   let scale = 1,
     posX = 0,
     posY = 0,
-    curEle: HTMLElement;
+    curEle: HTMLElement,
+    activeId = "-1";
   const setActive = useStore((state) => state.setActive);
+  const setPos = useStore((state) => state.setPos);
 
   const handleMouseMove = useMemoizedFn((e: MouseEvent) => {
     if (!curEle) return;
@@ -21,6 +23,7 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
 
   const handleMouseDown = useMemoizedFn((e: MouseEvent) => {
     if (e.target === e.currentTarget) {
+      activeId = "-1";
       setActive("-1");
     } else {
       document.addEventListener("mousemove", handleMouseMove);
@@ -34,6 +37,7 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
       const ele = document.getElementById(t.id);
       if (ele) {
         setActive(t.id);
+        activeId = t.id;
         curEle = ele;
         posY = Number(ele.style.top.slice(0, ele.style.top.length - 2));
         posX = Number(ele.style.left.slice(0, ele.style.left.length - 2));
@@ -43,6 +47,7 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
 
   const handleMouseUp = useMemoizedFn(() => {
     document.removeEventListener("mousemove", handleMouseMove);
+    if (activeId !== "-1") setPos(activeId, posX, posY);
   });
 
   useEffect(() => {

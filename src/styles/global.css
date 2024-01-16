@@ -1,4 +1,5 @@
 @import url("./util.css");
+@import url("./animation.css");
 
 @tailwind base;
 @tailwind components;
