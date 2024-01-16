@@ -1,4 +1,4 @@
-import { clear, genTestData } from "@/utils/testdata";
+import { dataDelete, genTestData } from "@/utils/testdata";
 import html2canvas from "html2canvas";
 
 export default function Print() {
@@ -20,12 +20,14 @@ export default function Print() {
           Hello
         </div>
       </div>
-      <button onClick={testCanvas}>html2canvas test</button>
-      <button onClick={clear} className="p-5 m-4 bg-violet-600">
-        清除localstorage
+      <button onClick={testCanvas} className="p-5 m-4 bg-violet-600">
+        html2canvas test
       </button>
       <button onClick={genTestData} className="p-5 m-4 bg-violet-600">
         生成测试数据
+      </button>
+      <button onClick={dataDelete} className="p-5 m-4 bg-violet-600">
+        delete indexedDB
       </button>
     </div>
   );

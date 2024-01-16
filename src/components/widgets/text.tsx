@@ -4,7 +4,7 @@ export default function Text({ widget }: { widget: Widget }) {
   return (
     <div
       id={widget.id}
-      className=" absolute flex items-center justify-center bg-red-500 border-[1px] border-solid border-black select-none"
+      className="absolute flex items-center justify-center bg-cyan-700 border-[1px] border-solid border-black select-none"
       style={{
         top: widget.top,
         left: widget.left,

@@ -1,19 +1,25 @@
 import Pagination from "@/components/pagination";
 import TempCard from "@/components/temp-card";
-import { getTempIds, getTempWithCover } from "@/utils/localStorage";
-import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
+import TempAddButton from "@/components/temp-add-button";
+import { useLiveQuery } from "dexie-react-hooks";
+import { countTemps, getTempWithCover } from "@/utils/indexedDB";
 import { Temp } from "@/types/temp";
+import Null from "@/assets/images/null.png";
 
 const PAGE_SIZE = 9;
 
 export default function TempList() {
-  const ids = getTempIds();
-  const pageCount = Math.ceil(Number(ids.length) / PAGE_SIZE);
+  const count = useLiveQuery(() => countTemps(), [], 0);
+  const pageCount = Math.ceil(count / PAGE_SIZE);
   const [pageNum, setPageNum] = useState(0);
-  const data: Temp[] = getTempWithCover(ids, pageNum, PAGE_SIZE);
+  const data = useLiveQuery(
+    () => getTempWithCover(pageNum, PAGE_SIZE),
+    [pageNum],
+    [] as Temp[],
+  );
 
-  return (
+  return data.length ? (
     <>
       <div className="columns-2 md:columns-3 lg:columns-4 gap-7 space-y-4">
         {data.map((x) => (
@@ -24,9 +30,16 @@ export default function TempList() {
         pageCount={pageCount}
         onPageChange={({ selected }) => setPageNum(selected)}
       />
-      <button className="fixed right-10 lg:right-28 bottom-20 lg:bottom-40 p-4 rounded-full bg-violet-500 text-purple-200 hover:bg-violet-400">
-        <FaPlus />
-      </button>
+      <TempAddButton />
+    </>
+  ) : (
+    <>
+      <img
+        src={Null}
+        alt="没有模板"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
+      <TempAddButton />
     </>
   );
 }
