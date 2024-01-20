@@ -6,4 +6,40 @@
   .button {
     @apply hover:bg-muted py-1 px-3 rounded
   }
+
+  .sizer {
+    content: "";
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    background-color: #0ea5e9;
+  }
+
+  .sizer-bottom::after {
+    @apply sizer;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 70%);
+  }
+
+  .sizer-top::before {
+    @apply sizer;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -70%);
+  }
+
+  .sizer-left::before {
+    @apply sizer;
+    left: 0px;
+    top: 50%;
+    transform: translate(-70%, -50%);
+  }
+
+  .sizer-right::after {
+    @apply sizer;
+    right: 0px;
+    top: 50%;
+    transform: translate(70%, -50%);
+  }
 }

@@ -3,22 +3,32 @@ import { db } from "@/lib/db";
 import { Cover } from "@/types/cover";
 import { Temp } from "@/types/temp";
 import { Widget, Widgets } from "@/types/widget";
+import toast from "react-hot-toast";
 
 //TODO 拆分到不同文件
 export async function addTemp(temp: Temp) {
-  if (temp.coverId === -1) {
-    temp.coverId = await addCover("/images/null.png");
-  }
-  if (temp.widgetsId === -1) {
-    temp.widgetsId = await addWidgets([]);
-  }
   let id;
   try {
-    id = await db.temps.add(temp);
+    id = await db.transaction(
+      "rw",
+      db.covers,
+      db.temps,
+      db.widgets,
+      async () => {
+        if (temp.coverId === -1) {
+          temp.coverId = await addCover("/images/null.png");
+        }
+        if (temp.widgetsId === -1) {
+          temp.widgetsId = await addWidgets([]);
+        }
+        const tempId = await db.temps.add(temp);
+        return tempId ? Number(tempId.valueOf()) : -1;
+      },
+    );
   } catch (e: any) {
     console.error(e.message);
   }
-  return id ? Number(id.valueOf()) : -1;
+  return typeof id === "number" ? id : -1;
 }
 
 export function addTemps(temps: Temp[]) {
@@ -29,6 +39,28 @@ export async function setTemp(temp: Temp) {
   try {
     if (!temp.id) throw new Error("id 不能为空");
     await db.temps.update(temp.id, temp);
+  } catch (e: any) {
+    console.error(e.message);
+  }
+}
+
+export async function deleteTemp(tempId: number) {
+  const temp = await db.temps.get(tempId);
+  if (!temp) {
+    console.error(`temp not found: ${tempId}`);
+    return;
+  }
+  try {
+    await db.transaction("rw", db.temps, db.widgets, db.covers, async () => {
+      if (temp.coverId !== -1) {
+        await db.covers.delete(temp.coverId);
+      }
+      if (temp.widgetsId !== -1) {
+        await db.widgets.delete(temp.widgetsId);
+      }
+      await db.temps.delete(tempId);
+      toast.success("删除成功");
+    });
   } catch (e: any) {
     console.error(e.message);
   }

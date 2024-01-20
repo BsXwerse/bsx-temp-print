@@ -1,6 +1,7 @@
+import { deleteTemp } from "@/utils/indexedDB";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
-export default function DeleteDialog() {
+export default function DeleteDialog({ tempId }: { tempId: number }) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
@@ -15,10 +16,13 @@ export default function DeleteDialog() {
           </AlertDialog.Description>
           <div className="flex justify-end gap-7">
             <AlertDialog.Cancel asChild>
-              <button className="hover:bg-muted py-1 px-3 rounded">取消</button>
+              <button className="button">取消</button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <button className="bg-red-500 hover:bg-red-400 dark:text-foreground text-white/95 py-1 px-3 rounded">
+              <button
+                className="button bg-red-500 hover:bg-red-400 dark:text-foreground text-white/95"
+                onClick={() => deleteTemp(tempId)}
+              >
                 确认
               </button>
             </AlertDialog.Action>
