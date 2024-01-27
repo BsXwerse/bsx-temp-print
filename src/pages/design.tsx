@@ -35,7 +35,6 @@ export default function Design() {
             ref={ref}
           >
             <Widgets />
-            {/* <Sizer /> */}
           </div>
         </div>
       </div>

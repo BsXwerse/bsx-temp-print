@@ -1,52 +1,23 @@
-import useStore from "@/store";
-
-export default function Sizer() {
-  const cur = useStore((state) =>
-    state.widget.find((x) => x.id === state.active),
-  );
-
-  return (
-    cur && (
-      <>
-        <div
-          className="absolute w-[4px] h-[4px] bg-sky-500"
-          style={{
-            left: cur.left - 2 + cur.width / 2 + "px",
-            top: cur.top - 3 + "px",
-          }}
-        />
-        <div
-          className="absolute w-[4px] h-[4px] bg-sky-500"
-          style={{
-            left: cur.left - 2 + cur.width / 2 + "px",
-            top: cur.top - 2 + cur.height + "px",
-          }}
-        />
-        <div
-          className="absolute w-[4px] h-[4px] bg-sky-500"
-          style={{
-            left: cur.left - 3 + "px",
-            top: cur.top - 2 + cur.height / 2 + "px",
-          }}
-        />
-        <div
-          className="absolute w-[4px] h-[4px] bg-sky-500"
-          style={{
-            left: cur.left - 2 + cur.width + "px",
-            top: cur.top - 2 + cur.height / 2 + "px",
-          }}
-        />
-      </>
-    )
-  );
-}
-
-export function SizerShow({ show }: { show: boolean }) {
+export function Sizer({ show }: { show: boolean }) {
   return (
     show && (
       <>
-        <div className="w-0 h-0 sizer-left sizer-right" />
-        <div className="w-0 h-0 sizer-top sizer-bottom" />
+        <div
+          id="top-sizer"
+          className="absolute w-[6px] h-[6px] bg-sky-500 -translate-x-1/2 -translate-y-[70%] left-1/2 top-0 cursor-ns-resize z-10"
+        />
+        <div
+          id="bottom-sizer"
+          className="absolute w-[6px] h-[6px] bg-sky-500 -translate-x-1/2 translate-y-[70%] left-1/2 bottom-0 cursor-ns-resize z-10"
+        />
+        <div
+          id="left-sizer"
+          className="absolute w-[6px] h-[6px] bg-sky-500 -translate-x-[70%] -translate-y-1/2 top-1/2 left-0 cursor-ew-resize z-10"
+        />
+        <div
+          id="right-sizer"
+          className="absolute w-[6px] h-[6px] bg-sky-500 translate-x-[70%] -translate-y-1/2 top-1/2 right-0 cursor-ew-resize z-10"
+        />
       </>
     )
   );

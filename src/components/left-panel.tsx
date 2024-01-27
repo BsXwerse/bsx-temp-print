@@ -31,7 +31,7 @@ export default function LeftPanel() {
 
   const add = () => {
     addWidget({
-      id: uuidv4(),
+      id: "widget-" + uuidv4(),
       type: WidgetType.TEXT,
       width: Math.random() * 90 + 50,
       height: Math.random() * 90 + 50,

@@ -1,7 +1,7 @@
 import useStore from "@/store";
 import { Widget } from "@/types/widget";
 import classnames from "classnames";
-import { SizerShow } from "../sizer";
+import { Sizer } from "../sizer";
 
 export default function Text({ widget }: { widget: Widget }) {
   const activeId = useStore((state) => state.active);
@@ -23,7 +23,7 @@ export default function Text({ widget }: { widget: Widget }) {
         height: widget.height,
       }}
     >
-      <SizerShow show={widget.id === activeId} />
+      <Sizer show={widget.id === activeId} />
       <div className="w-10 h-10 bg-black" />
       {widget.value}
     </div>
