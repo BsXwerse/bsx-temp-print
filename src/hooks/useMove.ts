@@ -6,6 +6,8 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
   let scale = 1,
     posX = 0,
     posY = 0,
+    rightLimit = Number.MAX_VALUE,
+    bottomLimit = Number.MAX_VALUE,
     curEle: HTMLElement,
     activeId = "-1";
   const setActive = useStore((state) => state.setActive);
@@ -15,6 +17,8 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
     if (!curEle) return;
     posX += e.movementX * scale;
     posY += e.movementY * scale;
+    posX = posX < 0 ? 0 : posX > rightLimit ? rightLimit : posX;
+    posY = posY < 0 ? 0 : posY > bottomLimit ? bottomLimit : posY;
     requestAnimationFrame(() => {
       curEle.style.top = `${posY}px`;
       curEle.style.left = `${posX}px`;
@@ -48,6 +52,10 @@ export default function useMove(ref: React.RefObject<HTMLDivElement>) {
       curEle = target;
       posY = Number(target.style.top.slice(0, target.style.top.length - 2));
       posX = Number(target.style.left.slice(0, target.style.left.length - 2));
+      bottomLimit =
+        (ref.current?.offsetHeight || Number.MAX_VALUE) - target.offsetHeight;
+      rightLimit =
+        (ref.current?.offsetWidth || Number.MAX_VALUE) - target.offsetWidth;
     }
   });
 

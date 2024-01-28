@@ -6,6 +6,7 @@ import { create } from "zustand";
 type State = {
   curTemp?: Temp | null;
   widget: Widget[];
+  widgetMap: Map<string, number>;
   active: string;
 };
 
@@ -26,20 +27,30 @@ type Action = {
 const initValue: State = {
   widget: [],
   curTemp: null,
+  widgetMap: new Map(),
   active: "-1",
 };
 
-//TODO 不传id，用active
-//TODO 优化cur widget
 const useStore = create<State & Action>()((set) => ({
   ...initValue,
   setActive: (id) => set(() => ({ active: id })),
   setCurTemp: (temp) =>
-    set(() => ({ curTemp: temp, widget: temp?.widgets ? temp.widgets : [] })),
+    set(() => {
+      const ws = temp?.widgets;
+      const widgetMap = new Map();
+      if (ws) for (let i = 0; i < ws.length; i++) widgetMap.set(ws[i].id, i);
+      return {
+        curTemp: temp,
+        widget: ws ? ws : [],
+        widgetMap,
+      };
+    }),
   setPos(left, top) {
     set(
       produce((state: State) => {
-        const w = state.widget.find((x) => x.id === state.active);
+        const idx = state.widgetMap.get(state.active);
+        if (typeof idx !== "number") return;
+        const w = state.widget[idx];
         if (w) {
           w.left = left;
           w.top = top;
@@ -51,13 +62,16 @@ const useStore = create<State & Action>()((set) => ({
     set(
       produce((state: State) => {
         state.widget.push(widget);
+        state.widgetMap.set(widget.id, state.widget.length - 1);
       }),
     );
   },
   changeSizePos(width, height, top, left) {
     set(
       produce((state: State) => {
-        const w = state.widget.find((x) => x.id === state.active);
+        const idx = state.widgetMap.get(state.active);
+        if (typeof idx !== "number") return;
+        const w = state.widget[idx];
         if (w) {
           w.width += width;
           w.height += height;

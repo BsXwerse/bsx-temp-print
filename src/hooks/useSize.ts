@@ -10,8 +10,8 @@ enum Direction {
 }
 
 export default function useSize(ref: React.RefObject<HTMLDivElement>) {
-  let scale = 1;
-  let direction: Direction | null = null;
+  let scale = 1,
+    direction: Direction | null = null;
   const changeSizePos = useStore((state) => state.changeSizePos);
 
   const handleMouseMove = (e: MouseEvent) => {

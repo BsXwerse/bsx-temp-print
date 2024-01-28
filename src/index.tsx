@@ -4,6 +4,9 @@ import App from "./App";
 import "@/styles/global.css";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
+import { enableMapSet } from "immer";
+
+enableMapSet();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
