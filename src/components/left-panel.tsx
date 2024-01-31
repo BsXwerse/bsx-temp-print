@@ -31,10 +31,10 @@ export default function LeftPanel() {
 
   const add = () => {
     addWidget({
-      id: uuidv4(),
+      id: "widget-" + uuidv4(),
       type: WidgetType.TEXT,
-      width: Math.random() * 30 + 16,
-      height: Math.random() * 30 + 16,
+      width: Math.random() * 90 + 50,
+      height: Math.random() * 90 + 50,
       top: Math.random() * 190,
       left: Math.random() * 150,
       name: faker.lorem.word({ length: { max: 10, min: 5 } }),

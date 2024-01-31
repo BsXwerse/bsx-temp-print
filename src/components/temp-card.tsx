@@ -26,7 +26,7 @@ export default function TempCard({ temp }: { temp: Temp }) {
               打印
             </Link>
             <button className="hover:bg-muted p-2 rounded">导出</button>
-            <DeleteDialog />
+            {typeof temp.id === "number" && <DeleteDialog tempId={temp.id} />}
           </div>
         </Popover.Content>
       </Popover.Portal>

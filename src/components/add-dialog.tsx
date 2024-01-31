@@ -4,6 +4,7 @@ import { useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import { addTemp } from "@/utils/indexedDB";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function AddDialog() {
   const papertypes = getTypeList();
@@ -21,10 +22,17 @@ export default function AddDialog() {
       widgetsId: -1,
       coverId: -1,
     })
-      .then((id) => navigate(`/design/${id}`))
+      .then((id) => {
+        if (id === -1) {
+          toast.error("新增模板失败");
+          return;
+        }
+        navigate(`/design/${id}`);
+      })
       .catch((err) => console.error(err));
   };
 
+  //TODO 添加动画
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>

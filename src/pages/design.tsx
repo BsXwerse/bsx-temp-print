@@ -7,6 +7,8 @@ import { getTempWithWidgets } from "@/utils/indexedDB";
 import useMouse from "@/hooks/useMouse";
 import Widgets from "@/components/widgets";
 
+const OFFSET = 3.8;
+
 export default function Design() {
   const { tempId } = useParams();
   const setCurTemp = useStore((state) => state.setCurTemp);
@@ -17,6 +19,7 @@ export default function Design() {
   useMount(async () => setCurTemp(await getTempWithWidgets(Number(tempId))));
   useUnmount(() => reset());
 
+  //TODO 背景修改
   if (curTemp) {
     return (
       <div className="flex">
@@ -25,7 +28,10 @@ export default function Design() {
           <div
             id="design-canvas"
             className="bg-white/50 text-foreground relative shrink-0"
-            style={{ width: curTemp.width, height: curTemp.height }}
+            style={{
+              width: curTemp.width * OFFSET,
+              height: curTemp.height * OFFSET,
+            }}
             ref={ref}
           >
             <Widgets />
