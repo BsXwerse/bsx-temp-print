@@ -1,4 +1,5 @@
 import { WidgetType } from "./enums/widget-types";
+import Style from "./style";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Widget {
@@ -10,7 +11,7 @@ export interface Widget {
   top: number;
   name: string;
   value: any;
-  style: any;
+  style: Style;
 }
 
 export interface Widgets {
