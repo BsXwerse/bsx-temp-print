@@ -2,10 +2,11 @@ import useStore from "@/store";
 import { useMount, useUnmount } from "ahooks";
 import { Link, useParams } from "react-router-dom";
 import Null from "@/assets/images/null.png";
-import LeftPanel from "@/components/left-panel";
+import TopPanel from "@/components/top-panel";
 import { getTempWithWidgets } from "@/utils/indexedDB";
 import useMouse from "@/hooks/useMouse";
 import Widgets from "@/components/widgets";
+import LeftPanel from "@/components/left-panel";
 
 const OFFSET = 3.8;
 
@@ -22,12 +23,13 @@ export default function Design() {
   //TODO 背景修改
   if (curTemp) {
     return (
-      <div className="flex">
+      <div className="flex flex-col">
+        <TopPanel />
         <LeftPanel />
         <div className="w-full h-screen overflow-hidden flex items-center justify-center">
           <div
             id="design-canvas"
-            className="bg-white/50 text-foreground relative shrink-0"
+            className=" bg-white text-foreground relative shrink-0"
             style={{
               width: curTemp.width * OFFSET,
               height: curTemp.height * OFFSET,

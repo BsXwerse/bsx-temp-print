@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import html2canvas from "html2canvas";
 import useStore from "@/store";
 import { setCover, setTemp, setWidgets } from "@/utils/indexedDB";
-import { useMount } from "ahooks";
 import { v4 as uuidv4 } from "uuid";
-import { faker } from "@faker-js/faker";
+import html2canvas from "html2canvas";
 import { WidgetType } from "@/types/enums/widget-types";
+import { faker } from "@faker-js/faker";
+import { useMount } from "ahooks";
+import { Link } from "react-router-dom";
 
 export default function LeftPanel() {
   const curTemp = useStore((state) => state.curTemp);
@@ -46,12 +46,10 @@ export default function LeftPanel() {
   useMount(saveCover);
 
   return (
-    <div className="min-h-screen bg-slate-700">
-      <div className="w-32 flex flex-col gap-10">
-        <Link to="/list">返回</Link>
-        <button onClick={handleSave}>保存</button>
-        <button onClick={add}>添加组件</button>
-      </div>
+    <div className="fixed left-0 z-20 flex flex-col items-center w-[100px] bg-slate-500 min-h-screen">
+      <button onClick={handleSave}>保存</button>
+      <button onClick={add}>添加组件</button>
+      <Link to="/list">返回</Link>
     </div>
   );
 }

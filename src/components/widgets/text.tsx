@@ -11,12 +11,9 @@ export default function Text({ widget }: { widget: Widget }) {
   return (
     <div
       id={widget.id}
-      className={classnames(
-        "absolute bg-cyan-700 border-[1px] border-solid border-black select-none",
-        {
-          ["outline outline-1 outline-sky-500"]: widget.id === activeId,
-        },
-      )}
+      className={classnames("absolute select-none text-black", {
+        ["outline outline-1 outline-sky-500"]: widget.id === activeId,
+      })}
       style={{
         top: widget.top,
         left: widget.left,
@@ -26,7 +23,6 @@ export default function Text({ widget }: { widget: Widget }) {
       }}
     >
       <Sizer show={widget.id === activeId} />
-      <div className="w-10 h-10 bg-black" />
       {widget.value}
     </div>
   );

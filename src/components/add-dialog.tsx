@@ -1,10 +1,10 @@
 import { getPagerSize, getTypeList } from "@/utils/paper-size";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
-import * as Select from "@radix-ui/react-select";
 import { addTemp } from "@/utils/indexedDB";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Selector from "./common/selector";
 
 export default function AddDialog() {
   const papertypes = getTypeList();
@@ -58,28 +58,13 @@ export default function AddDialog() {
               }
             />
           </div>
-          <div className="pb-3 ml-4">
+          <div className="pb-3 ml-4 flex">
             <label className="mr-4">纸张尺寸:</label>
-            <Select.Root onValueChange={(e) => setPaperSize(getPagerSize(e))}>
-              <Select.Trigger className="px-5 hover:bg-muted rounded">
-                <Select.Value placeholder="请选择" />
-              </Select.Trigger>
-              <Select.Portal>
-                <Select.Content className="bg-background text-foreground rounded">
-                  <Select.Viewport className="p-2">
-                    {papertypes.map((x) => (
-                      <Select.Item
-                        value={x}
-                        key={x}
-                        className="p-1 hover:bg-muted rounded cursor-pointer outline-none"
-                      >
-                        <Select.ItemText>{x}</Select.ItemText>
-                      </Select.Item>
-                    ))}
-                  </Select.Viewport>
-                </Select.Content>
-              </Select.Portal>
-            </Select.Root>
+            <Selector
+              className="bg-background text-foreground"
+              onValueChange={(e: string) => setPaperSize(getPagerSize(e))}
+              items={papertypes}
+            />
           </div>
           <div className="flex justify-end gap-3">
             <Dialog.Close>
