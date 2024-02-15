@@ -17,9 +17,18 @@ const fontSize = new Map([
   ["八号", 5],
 ]);
 
+const sizeFont = new Map(
+  Array.from(fontSize.entries()).map((x) => [x[1], x[0]]),
+);
+
 export function getFontSize(type: string) {
   if (!fontSize.has(type)) console.error(`没有 ${type} 类型的字号`);
   return fontSize.get(type) ?? 12;
+}
+
+export function getSizeFont(size: number) {
+  if (!sizeFont.has(size)) console.error(`没有 ${size}pt 大小的字号`);
+  return sizeFont.get(size);
 }
 
 export function getSizeList() {

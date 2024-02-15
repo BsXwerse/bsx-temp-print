@@ -6,4 +6,16 @@
   .button {
     @apply hover:bg-muted py-1 px-3 rounded
   }
+
+  .tb-toggle[data-state='on'] {
+    @apply bg-violet-200 rounded ring-2 ring-violet-400
+  }
+
+  .tb-toggle:hover {
+    @apply bg-violet-200 rounded
+  }
+
+  .tb-toggle {
+    @apply p-1 outline-none
+  }
 }

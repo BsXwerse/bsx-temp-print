@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RxChevronDown } from "react-icons/rx";
 import * as Select from "@radix-ui/react-select";
+import classnames from "classnames";
 
-type SelectProps = Select.SelectContentProps & {
-  onValueChange: (e: string) => void;
+type SelectProps = Pick<
+  Select.SelectProps,
+  "onValueChange" | "value" | "defaultValue"
+> & {
   items: string[];
-  defaultValue?: string;
+  className: string;
 };
 
 export default function Selector({
@@ -13,17 +15,22 @@ export default function Selector({
   items,
   className,
   defaultValue,
+  value,
 }: SelectProps) {
   return (
-    <Select.Root onValueChange={onValueChange} defaultValue={defaultValue}>
-      <Select.Trigger className="px-5 hover:bg-muted rounded flex items-center gap-2">
+    <Select.Root
+      onValueChange={onValueChange}
+      defaultValue={defaultValue}
+      value={value}
+    >
+      <Select.Trigger className="px-5 hover:bg-muted rounded flex items-center gap-2 outline-none">
         <Select.Value placeholder="请选择" />
         <Select.Icon>
           <RxChevronDown />
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className={"rounded z-20 " + (className ?? "")}>
+        <Select.Content className={classnames("rounded z-20", className)}>
           <Select.Viewport className="p-2">
             {items.map((x) => (
               <Select.Item

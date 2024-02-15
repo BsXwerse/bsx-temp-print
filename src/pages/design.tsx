@@ -26,7 +26,7 @@ export default function Design() {
       <div className="flex flex-col">
         <TopPanel />
         <LeftPanel />
-        <div className="w-full h-screen overflow-hidden flex items-center justify-center">
+        <div className="fixed w-full h-screen overflow-hidden flex items-center justify-center">
           <div
             id="design-canvas"
             className=" bg-white text-foreground relative shrink-0"

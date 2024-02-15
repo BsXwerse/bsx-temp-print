@@ -1,3 +1,4 @@
+import Style from "@/types/style";
 import { Temp } from "@/types/temp";
 import { Widget } from "@/types/widget";
 import { produce } from "immer";
@@ -21,6 +22,7 @@ type Action = {
     top: number,
     left: number,
   ) => void;
+  setStyle: (style: Style) => void;
   reset: () => void;
 };
 
@@ -78,6 +80,16 @@ const useStore = create<State & Action>()((set) => ({
           w.top += top;
           w.left += left;
         }
+      }),
+    );
+  },
+  setStyle(style) {
+    set(
+      produce((state: State) => {
+        const idx = state.widgetMap.get(state.active);
+        if (typeof idx !== "number") return;
+        const w = state.widget[idx];
+        if (w) w.style = { ...w.style, ...style };
       }),
     );
   },

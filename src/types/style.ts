@@ -8,7 +8,7 @@ export interface StyleAll {
   textAlign: TextAlign;
   textColor: string;
   fontFamily: string;
-  hasBorder: string;
+  hasBorder: boolean;
 }
 
 type Style = Partial<StyleAll>;
